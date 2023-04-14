@@ -1,0 +1,40 @@
+.form-container, .switch-container{
+    display: block;
+    text-align: center;
+}
+
+
+.fc__items{
+    padding-left: 5rem;
+    padding-right: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.fc__items p{
+    margin-left:1rem;
+}
+
+.switch-container{
+    margin-top: 1rem;
+}
+.tabs a span {
+    display: inline-block;
+    border: 5px 5px 0 0;
+    width: 100px;
+    margin-right: 10px;
+    text-align: center;
+    background: #ddd;
+    padding: 5px;
+}
+
+.content{
+    display: block;
+    margin: auto;
+    width: 400px;
+}
+
+.tabs a span.active {
+    background: #eee;
+}
+

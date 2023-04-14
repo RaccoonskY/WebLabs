@@ -1,0 +1,45 @@
+main{
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
+.main-content{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.product-item{
+    background-color: antiquewhite;
+    border: 1.5px solid rgb(67, 67, 67);
+    border-radius: 5%;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+
+
+}
+
+.product__icon{
+    width: 15rem;    
+    height: 15rem;
+    border-radius: 5%;
+}
+
+.product-item__rating{
+    display: grid;
+    grid-template:  1fr / 1fr 1fr;
+}
+
+
+.rating-icon{
+    width: 1rem;
+    margin-right: 0.5rem;
+}
+
+
+.product__text{
+    padding-left: 0.5rem;
+    color: black;
+    text-decoration: none;
+}
+
