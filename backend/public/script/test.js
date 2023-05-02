@@ -6,6 +6,14 @@ function productIsVisited(e){
 
 }
 
+async function sendMessage(msg){
+    let request = new XMLHttpRequest();
+    request.open("POST", "/add_message", true);
+    request.setRequestHeader("Content-Type", "application/json");
+    await request.send(JSON.stringify(msg));
+}
+
+
 function appendItemForm(e){
     let fc_items = document.querySelector(".fc__items");
     
@@ -15,9 +23,11 @@ function appendItemForm(e){
         
         pElement.style.color = "#"+ Math.floor(Math.random()*16777215).toString(16);
     }
+    sendMessage({"text":pElement.innerHTML, "color":pElement.style.color}).catch((err)=>{console.log(`Error occurred: ${err.message}`)});
     fc_items.appendChild(pElement);
     alert("Спасибо за ваш отзыв!"); 
 }
+
 /*
 function secondsRecordedPromise(seconds){
 
@@ -52,7 +62,7 @@ function tsPGenerator(seconds,plusSecs){
     setTimeout(async ()=>{
         const curSecs = await secondsRecordedPromise(seconds,plusSecs);
         console.log(`${curSecs} секунд уже на сайте`)
-        if(curSecs % 5 === 0 && curSecs >= 5){
+        if(curSecs % 30 === 0 && curSecs >= 30){
             alert("Персональная скидка в 30%!");
         }
         tsPGenerator(curSecs, plusSecs);
@@ -85,9 +95,5 @@ window.onload = function(){
     }catch(error){
         console.log(error);
     }
-
-
-
  };
-
 

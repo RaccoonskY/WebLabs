@@ -1,6 +1,7 @@
 class Product{
-    constructor(name,rating,image_src, product_sold){
-        this.id = crypto.randomUUID().slice(1,7);
+    constructor(name,rating,image_src, product_sold, id = undefined){
+        id = typeof id !== 'undefined'? id: crypto.randomUUID().slice(1,7);
+        this.id = id;
         this.name = name;
         this.rating = rating;
         this.image = image_src;
@@ -17,7 +18,8 @@ class Product{
                    </div>
                    <p class="product-cost product__text"></p>
                </a>
-           </div>`}
+           </div>`
+    }
 }
 function setProductsIds(){
     $(".product-item").each(()=> {
@@ -34,40 +36,65 @@ function getProductsIds(){
     return idArr;
 }
 
-
-function addNewProduct(){
-    //et new_elem = $($("#tmpl").html());
-    let new_elem = new Product("Повдеска",4.8,"https://planetofhotels.com/guide/sites/default/files/styles/paragraph__hero_banner__hb_image__1880bp/public/hero_banner/Niagara-falls.jpg","10 000").getHTML();
+function appendProductToRender(new_elem){
+    new_elem = $(new_elem.getHTML());
     $(".main-content").append(new_elem);
     $(new_elem).on("click",function(){
         $(".product-item").removeClass("active");
         $(new_elem).addClass("active");
         return false;
     });
-
 }
 
+function addNewProduct(name){
+    let data_form = document.querySelector('.add-product-container form');
+    data_form = new FormData(data_form);
+    let new_elem = new Product(data_form.get('name'),data_form.get('rating'),data_form.get('image'),data_form.get('sold'));
+    let request = new XMLHttpRequest();
+    request.open("POST", "/add_product", true);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send(JSON.stringify(new_elem));
 
+    appendProductToRender(new_elem);
+}
 
-$(document).ready(function() {
+function addNewProductStrs(name, rating, image,sold,id){
+    let new_elem = new Product(name,rating,image,sold,id);
+    appendProductToRender(new_elem);
+}
+function addNewMessageStrs(text, color){
+    let new_msg =  document.createElement("p");
+    new_msg.innerHTML = text;
+    new_msg.style.color = color;
+    $(".fc__items").append($(new_msg));
+}
+$(document).ready( function () {
 
     //добавление и получение id существующих эл-ов
-/*    setProductsIds();
-    let productsIds = getProductsIds();
-    productsIds.forEach((elem)=>{
-        console.log("ID "+ elem);
-    })*/
+    /*    setProductsIds();
+        let productsIds = getProductsIds();
+        productsIds.forEach((elem)=>{
+        
+            console.log("ID "+ elem);
+        })*/
+
+    $.getJSON("/products",(data)=>{
+        for(let i=0;i<data.messages.length;i++){
+            addNewMessageStrs(data.messages[i].text, data.messages[i].color);
+        }
+        for(let i=0;i<data.products.length;i++){
+            addNewProductStrs(data.products[i].name,data.products[i].rating, data.products[i].image,data.products[i].sold,data.products[i].id);
+        }
+    })
 
 
-    $(".product-item").toArray().forEach((elem)=>{
-        $(elem).on("click",function(){
+    $(".product-item").toArray().forEach((elem) => {
+        $(elem).on("click", function () {
             $(".product-item").removeClass("active");
             $(elem).addClass("active");
             return false;
         });
     });
 
-
     $(".add-bttn").on('click', addNewProduct);
-
 });

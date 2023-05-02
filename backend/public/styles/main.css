@@ -185,3 +185,18 @@ header{
 .product-item.active{
     border: 3px solid rgb(196, 186, 128);
 }
+.add-product-container{
+    margin-top:1em;
+    text-align: center;
+    width: 100%;
+}
+
+.add-product-container input{
+    width: 100px;
+}
+
+.add-product-container input:last-child{
+    width: 125px;
+
+}
+
