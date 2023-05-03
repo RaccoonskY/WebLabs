@@ -3,21 +3,19 @@ function productIsVisited(e){
     bgclr == "grey"? this.style.backgroundColor = "#" + Math.floor(Math.random()*16777215).toString(16): this.style.backgroundColor = "grey";
     alert("Ой вей, произошла какая-то ошибка!");
     e.stopPropagation();
-
 }
 
 async function sendMessage(msg){
     let request = new XMLHttpRequest();
-    request.open("POST", "/add_message", true);
+    request.open("POST", "/messages/add", true);
     request.setRequestHeader("Content-Type", "application/json");
     await request.send(JSON.stringify(msg));
 }
 
 
-function appendItemForm(e){
+function appendItemForm(){
     let fc_items = document.querySelector(".fc__items");
-    
-    var pElement = document.createElement("p");
+    let pElement = document.createElement("p");
     pElement.innerHTML = document.search.key.value;
     if(document.search.colors.checked){
         
@@ -29,6 +27,7 @@ function appendItemForm(e){
 }
 
 /*
+
 function secondsRecordedPromise(seconds){
 
     return new Promise(function(resolve){

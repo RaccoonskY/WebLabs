@@ -51,7 +51,7 @@ function addNewProduct(name){
     data_form = new FormData(data_form);
     let new_elem = new Product(data_form.get('name'),data_form.get('rating'),data_form.get('image'),data_form.get('sold'));
     let request = new XMLHttpRequest();
-    request.open("POST", "/add_product", true);
+    request.open("POST", "/products/add", true);
     request.setRequestHeader("Content-Type", "application/json");
     request.send(JSON.stringify(new_elem));
 
