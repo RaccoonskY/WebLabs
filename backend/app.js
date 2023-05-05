@@ -7,7 +7,10 @@ const productsRouter = require("./routes/productsRouter");
 
 
 const app = express();
+const cors = require("cors");
 
+
+app.use(cors());
 app.use(express.static('public'));
 
 //middleware for req logging
